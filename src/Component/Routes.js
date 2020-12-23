@@ -2,7 +2,7 @@ import React from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import styled from "styled-components"
 import Dash from "../Dash"
-import Report from "../Report"
+import WReport from "../WReport"
 import Header from "./Header"
 
 
@@ -12,7 +12,7 @@ const Routes = () =>(
         <Header/>
         <Switch>
         <Route exact path="/" component={Dash}/>
-        <Route  path="/report" component={Report}/>
+        <Route  path="/report" component={WReport}/>
         </Switch>
        
     </Router>
