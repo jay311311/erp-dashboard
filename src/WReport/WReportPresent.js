@@ -16,7 +16,7 @@ font-weight : bold;
 color:#636e72;
 margin:20px 0;
 `
-const Register = styled.button`
+const Register = styled.div`
 width:6%;
 margin: 5px  0% 5px 92%
 `
@@ -27,7 +27,7 @@ padding:5px 0
 const TableBody = styled.td`
 padding:5px 0;
 `
-const ModifyModal= styled.div`
+const ModifyModal= styled.form`
 /* position:absolute;
 top:0; */
 background: yellow;
@@ -44,11 +44,11 @@ height:30%
 const ModalContainer = styled.div`
 
 display:flex;
-justify-contents:center;
-align-items: center
+align-items: center;
+justify-content:center;
 `
 
-const WReportPresent =({stockBock,week}) =>{
+const WReportPresent =({stockBock,week, RegiName, RegiStock, Regimessage,handleChange, RegiSubmit}) =>{
  const [register, SetRegister] =useState(false)
  const [modify, SetModify] =useState(false)
 
@@ -87,7 +87,7 @@ const WReportPresent =({stockBock,week}) =>{
                     }
                     </table>
                     {register ?( <ModifyModal>
-                    <ModalContainer>
+                    <ModalContainer method="get" onSubmit={RegiSubmit}>
                         <div>
                             <span>브랜드명</span> 
                             <select>
@@ -101,10 +101,19 @@ const WReportPresent =({stockBock,week}) =>{
                                 <option value="카키블린">카키블린</option>
                             </select>
                         </div>
-                        <div><span>제품명</span><input value></input></div>
-                        <div><span>초기재고 </span><input value></input></div>
-                        <div><span>전달사항</span><input value></input></div>
-                        <button>확인</button>
+                        <div>
+                        <label>제품명</label>
+                        <input value={RegiName} onChange={handleChange} name="name"></input>
+                        </div>
+                        <div>
+                        <label>초기재고 </label>
+                        <input value={RegiStock} onChange={handleChange} name="stock"/>
+                        </div>
+                        <div>
+                            <label>전달사항</label>
+                            <input value={Regimessage} onChange={handleChange} name="messge"/>
+                        </div>
+                        <input type="submit"/>
                         </ModalContainer>
                         </ModifyModal> ): null}
            
