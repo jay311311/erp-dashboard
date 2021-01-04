@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
+import WeekData from "../Component/WeekData"
 
 const ContainerBox = styled.div`
 margin:60px;
@@ -27,13 +28,7 @@ padding:5px 0
 const TableBody = styled.td`
 padding:5px 0;
 `
-const ModifyModal= styled.form`
-/* position:absolute;
-top:0; */
-background: yellow;
-width:80%;
-height:30%
-`
+
 const RegisterModal= styled.div`
 /* position:absolute;
 top:30%; */
@@ -41,14 +36,14 @@ background: blue;
 width:80%;
 height:30%
 `
-const ModalContainer = styled.div`
+const ModalContainer = styled.form`
 
 display:flex;
 align-items: center;
 justify-content:center;
 `
 
-const WReportPresent =({stockBock,week, RegiName, RegiStock, Regimessage,handleChange, RegiSubmit}) =>{
+const WReportPresent =({stockBock,week, RegiName, RegiStock, Regimessage, handleChange, RegiSubmit, BrandName, handleClick}) =>{
  const [register, SetRegister] =useState(false)
  const [modify, SetModify] =useState(false)
 
@@ -79,50 +74,38 @@ const WReportPresent =({stockBock,week, RegiName, RegiStock, Regimessage,handleC
                             <TableBody >{stock.weekly_stock_past}</TableBody>
                             <TableBody >{`${stock.weekly_stock_minus} / ${stock.weekly_stock_plus}`}</TableBody>
                             <TableBody >{stock.weekly_stock_now}</TableBody>
-                            <TableBody >0</TableBody>
+                            <TableBody >{stock.weekly_stock_past - stock.weekly_stock_now }</TableBody>
                             <TableBody onClick={()=>SetModify(!modify)}>✒</TableBody>
                         </tr>
                     </tbody>
                         ))
                     }
                     </table>
-                    {register ?( <ModifyModal>
-                    <ModalContainer method="get" onSubmit={RegiSubmit}>
-                        <div>
-                            <span>브랜드명</span> 
-                            <select>
-                                <option value="나이비">나이비</option>
-                                <option value="루미레브">루미레브</option>
-                                <option value="마지마켓">마지마켓</option>
-                                <option value="말랑하니">말랑하니</option>
-                                <option value="모우모우">모우모우</option>
-                                <option value="아이블린">아이블린</option>
-                                <option value="본분">본분</option>
-                                <option value="카키블린">카키블린</option>
-                            </select>
-                        </div>
-                        <div>
-                        <label>제품명</label>
-                        <input value={RegiName} onChange={handleChange} name="name"></input>
-                        </div>
-                        <div>
-                        <label>초기재고 </label>
-                        <input value={RegiStock} onChange={handleChange} name="stock"/>
-                        </div>
-                        <div>
-                            <label>전달사항</label>
-                            <input value={Regimessage} onChange={handleChange} name="messge"/>
-                        </div>
-                        <input type="submit"/>
+                    {register ?( 
+                    <RegisterModal>
+                        <ModalContainer method="get" onSubmit={RegiSubmit}>
+                            <div>
+                            <label>브랜드명</label>
+                            <input value={BrandName} onChange={handleChange} name="brand"></input> 
+                            </div>
+                            <div>
+                            <label>제품명</label>
+                            <input value={RegiName} onChange={handleChange} name="name"></input>
+                            </div>
+                            <div>
+                            <label>초기재고 </label>
+                            <input value={RegiStock} onChange={handleChange} name="stock"/>
+                            </div>
+                            <div>
+                                <label>전달사항</label>
+                                <input value={Regimessage} onChange={handleChange} name="message"/>
+                            </div>
+                            <button type="submit">등록</button>
                         </ModalContainer>
-                        </ModifyModal> ): null}
+                    </RegisterModal> ): null}
            
                     {modify ?(
-                    <RegisterModal>
-                        <ModalContainer>
-                
-                            </ModalContainer>
-                    </RegisterModal>
+                     <WeekData week={week}></WeekData>
                             ) :null}    
                    
             </Container>
