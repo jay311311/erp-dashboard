@@ -12,24 +12,9 @@ export const DataSet = {
                 product_name: "디데이달력 핑크",
                 weekly_stock_past: 1300,
                 weekly_stock_plus: 0,
-                weekly_stock_minus: 0,
+                weekly_stock_minus: 100,
                 weekly_stock_now: 1200,
-                week: [{
-                    stock_plus:0,
-                    stock_minus:100
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                }]
+                
             },
             {
                 id: "",
@@ -39,25 +24,10 @@ export const DataSet = {
                 location:"floor",
                 product_name: "달쿠션 솜",
                 weekly_stock_past: 29,
-                weekly_stock_plus: 0,
-                weekly_stock_minus: 0,
+                weekly_stock_plus: "",
+                weekly_stock_minus: "",
                 weekly_stock_now: 131,
-                week: [{
-                    stock_plus:0,
-                    stock_minus:0,
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:102,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                }]
+              
             },
             {
                 id: "",
@@ -67,25 +37,10 @@ export const DataSet = {
                 location:"underground",
                 product_name: "아이블린 볼풀공_파스텔믹스1팩",
                 weekly_stock_past: 28,
-                weekly_stock_plus: 0,
+                weekly_stock_plus: 28,
                 weekly_stock_minus: 0,
                 weekly_stock_now: 0,
-                week: [{
-                    stock_plus:0,
-                    stock_minus:16
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:4
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:8
-                }]
+               
             },
             {
                 id: "",
@@ -96,24 +51,9 @@ export const DataSet = {
                 product_name: "카키블린 아기수영장",
                 weekly_stock_past: 738,
                 weekly_stock_plus: 0,
-                weekly_stock_minus: 0,
+                weekly_stock_minus: 174,
                 weekly_stock_now: 564,
-                week: [{
-                    stock_plus:0,
-                    stock_minus:78
-                },{
-                    stock_plus:0,
-                    stock_minus:60
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:36
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                }]
+               
             },
             {
                 id: "",
@@ -124,24 +64,9 @@ export const DataSet = {
                 product_name: "카키블린 반신욕조",
                 weekly_stock_past: 880,
                 weekly_stock_plus: 0,
-                weekly_stock_minus: 0,
+                weekly_stock_minus: 20,
                 weekly_stock_now: 860,
-                week: [{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:20
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                },{
-                    stock_plus:0,
-                    stock_minus:0
-                }]
+               
             }
      ]
     }

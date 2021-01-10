@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import WeekData from "../Component/WeekData"
+import Table from "../Component/Table"
 
 const ContainerBox = styled.div`
 margin:60px;
@@ -43,47 +44,48 @@ align-items: center;
 justify-content:center;
 `
 
-const WReportPresent =({stockBock,week,  handleChange, RegiSubmit,RegiClick,register,modify }) =>{
+const WReportPresent =({stockBock,week,  handleChange, RegiSubmit,RegiClick,register,modify, handleClick,TList }) =>{
 
-
-
+    console.log(TList)
     return(
         <ContainerBox>
             <Container>
                 <Title>Weekly Report</Title>
                     <Register onClick={RegiClick}>Register</Register>
-                    <table style={{width:`100%`,textAlign:"center", border:"1px solid black"}}>
+                    <Table/>
+                     <table style={{width:`100%`,textAlign:"center", border:"1px solid black"}}>
                     <thead style={{width:`100%`}}>
                         <tr>
                             <TableHeader>재고 현황</TableHeader>
                             <TableHeader>브랜드</TableHeader>
                             <TableHeader style={{width:`30%`}}>제품 명</TableHeader>
                             <TableHeader>기존 재고</TableHeader>
-                            <TableHeader>입고/출고</TableHeader>
+                            <TableHeader>입고</TableHeader>
+                            <TableHeader>출고</TableHeader>
                             <TableHeader>현재재고</TableHeader>
-                            <TableHeader>누락건수</TableHeader>
                             <TableHeader>수정</TableHeader>
                         </tr>
                     </thead>
                     {stockBock && stockBock.map(stock=> (
                     <tbody>
-                        <tr key={Math.random()}>
+                        <tr key={Math.random()} onClick={handleClick}>
                             <TableBody >{stock.stock_state}</TableBody>
                             <TableBody >{stock.brand}</TableBody>
                             <TableBody >{stock.product_name}</TableBody>
                             <TableBody >{stock.weekly_stock_past}</TableBody>
-                            <TableBody >{`${stock.weekly_stock_minus} / ${stock.weekly_stock_plus}`}</TableBody>
-                            <TableBody >{stock.weekly_stock_now}</TableBody>
-                            <TableBody >{stock.weekly_stock_past - stock.weekly_stock_now }</TableBody>
+                            <TableBody >{stock.weekly_stock_plus ? stock.weekly_stock_plus: "-"}</TableBody>
+                            <TableBody >{stock.weekly_stock_minus ? stock.weekly_stock_minus :"-" }</TableBody>
+                            <TableBody >{stock.weekly_stock_past - stock.weekly_stock_minus + stock.weekly_stock_plus}</TableBody>
+                           
                             <TableBody onClick={RegiClick}>✒</TableBody>
                         </tr>
                     </tbody>
                         ))
                     }
-                    </table>
+                    </table> 
                     {register ?( 
                     <RegisterModal>
-                        <ModalContainer method="get" onSubmit={RegiSubmit} >
+                        <ModalContainer method="post" onSubmit={RegiSubmit} >
                             <div>
                             <label>브랜드명</label>
                             <input onChange={handleChange} name="brand"></input> 
@@ -105,7 +107,7 @@ const WReportPresent =({stockBock,week,  handleChange, RegiSubmit,RegiClick,regi
                     </RegisterModal> ): null}
            
                     {modify ?(
-                     <WeekData week={week}></WeekData>
+                     <WeekData TList={TList}></WeekData>
                             ) :null}    
                    
             </Container>

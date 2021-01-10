@@ -13,6 +13,15 @@ const  WReportContainer = () =>{
         message:'',
         stock:''
     }) 
+    const [TList,setTList] = useState({
+        brand:'',
+        name:'',
+        message:'',
+        stock:'',
+        plus:'',
+        minus:'',
+        now:''
+    })
    
 
     
@@ -26,9 +35,6 @@ const  WReportContainer = () =>{
         }else{
             SetModify(!modify)
         }
-        
-       
-
     }
 
     const RegiSubmit = (event) =>{
@@ -42,7 +48,6 @@ const  WReportContainer = () =>{
             const newBrand = brand.value
             const newStock = Number(stock.value)
             const newMessage = message.value
-
     
             axios.post("/register/",{
                 brand_name : newBrand ,
@@ -60,11 +65,8 @@ const  WReportContainer = () =>{
 
 
         } 
-        
-      
         event.target.reset()
         SetRegister(!register)
-        
     } 
 
  
@@ -77,10 +79,22 @@ const  WReportContainer = () =>{
         console.log(regi)
     } 
 
-
-
-
-
+    const handleClick=(event)=>{
+        const {target:{parentElement:{cells}}} = event
+        if (cells.length === 8){
+            SetModify(!modify)
+            console.log(cells)
+            setTList({
+                brand:cells[1].innerHTML,
+                name:cells[2].innerHTML,
+                message:cells[0].innerHTML,
+                stock:cells[3].innerHTML,
+                plus:cells[4].innerHTML,
+                minus:cells[5].innerHTML,
+                now:cells[6].innerHTML,
+            })
+        }
+    }
 
         return(
             <WReportPresent  
@@ -88,9 +102,11 @@ const  WReportContainer = () =>{
                 week={week}
                 RegiSubmit={RegiSubmit}
                 handleChange={handleChange} 
+                handleClick={handleClick}
                 RegiClick={RegiClick}
                 register={register}
                 modify={modify}
+                TList={TList}
             />
         )
     
