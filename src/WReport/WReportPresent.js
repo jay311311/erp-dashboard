@@ -43,15 +43,15 @@ align-items: center;
 justify-content:center;
 `
 
-const WReportPresent =({stockBock,week, RegiName, RegiStock, Regimessage, handleChange, RegiSubmit, BrandName, handleClick}) =>{
- const [register, SetRegister] =useState(false)
- const [modify, SetModify] =useState(false)
+const WReportPresent =({stockBock,week,  handleChange, RegiSubmit,RegiClick,register,modify }) =>{
+
+
 
     return(
         <ContainerBox>
             <Container>
                 <Title>Weekly Report</Title>
-                    <Register onClick={()=>SetRegister(!register)}>Register</Register>
+                    <Register onClick={RegiClick}>Register</Register>
                     <table style={{width:`100%`,textAlign:"center", border:"1px solid black"}}>
                     <thead style={{width:`100%`}}>
                         <tr>
@@ -75,7 +75,7 @@ const WReportPresent =({stockBock,week, RegiName, RegiStock, Regimessage, handle
                             <TableBody >{`${stock.weekly_stock_minus} / ${stock.weekly_stock_plus}`}</TableBody>
                             <TableBody >{stock.weekly_stock_now}</TableBody>
                             <TableBody >{stock.weekly_stock_past - stock.weekly_stock_now }</TableBody>
-                            <TableBody onClick={()=>SetModify(!modify)}>✒</TableBody>
+                            <TableBody onClick={RegiClick}>✒</TableBody>
                         </tr>
                     </tbody>
                         ))
@@ -83,24 +83,24 @@ const WReportPresent =({stockBock,week, RegiName, RegiStock, Regimessage, handle
                     </table>
                     {register ?( 
                     <RegisterModal>
-                        <ModalContainer method="get" onSubmit={RegiSubmit}>
+                        <ModalContainer method="get" onSubmit={RegiSubmit} >
                             <div>
                             <label>브랜드명</label>
-                            <input value={BrandName} onChange={handleChange} name="brand"></input> 
+                            <input onChange={handleChange} name="brand"></input> 
                             </div>
                             <div>
                             <label>제품명</label>
-                            <input value={RegiName} onChange={handleChange} name="name"></input>
+                            <input  onChange={handleChange} name="name"></input>
                             </div>
                             <div>
                             <label>초기재고 </label>
-                            <input value={RegiStock} onChange={handleChange} name="stock"/>
+                            <input  onChange={handleChange} name="stock"/>
                             </div>
                             <div>
                                 <label>전달사항</label>
-                                <input value={Regimessage} onChange={handleChange} name="message"/>
+                                <input  onChange={handleChange} name="message"/>
                             </div>
-                            <button type="submit">등록</button>
+                            <button type="submit"  >등록</button>
                         </ModalContainer>
                     </RegisterModal> ): null}
            
