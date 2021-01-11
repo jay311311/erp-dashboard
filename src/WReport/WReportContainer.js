@@ -30,8 +30,10 @@ const  WReportContainer = () =>{
     const {data:{stock_box:{week}}} = DataSet
 
     const RegiClick = (event) =>{
-        if(event.target.innerHTML === "Register"){
+        console.log(event)
+        if(event.target.innerHTML === "Register" || event.target.className === "close"){
             SetRegister(!register)
+          
         }else{
             SetModify(!modify)
         }
@@ -49,7 +51,7 @@ const  WReportContainer = () =>{
             const newStock = Number(stock.value)
             const newMessage = message.value
     
-            axios.post("/register/",{
+           /*  axios.post("/register/",{
                 brand_name : newBrand ,
                 product_name: newName,
                 initial_inventory: newStock,
@@ -59,7 +61,7 @@ const  WReportContainer = () =>{
               })
               .catch(function (error) {
                 console.log(error);
-              })
+              }) */
 
               console.log(newName, newBrand, newStock, newMessage )
 

@@ -4,11 +4,11 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Calender  = () => {
     
-    const [date, setDate] = useState();
+    const [date, setDate] = useState(new Date());
   
     const handleCalendarClose = () => console.log("Calendar closed");
     const handleCalendarOpen = () => console.log("Calendar opened");
-    console.log(date)
+  
     
     return (
       <DatePicker

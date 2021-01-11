@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import WeekData from "../Component/WeekData"
-import Table from "../Component/Table"
+import TableSection from "../Component/TableSection"
+
 
 const ContainerBox = styled.div`
 margin:60px;
@@ -20,31 +21,83 @@ margin:20px 0;
 `
 const Register = styled.div`
 width:6%;
-margin: 5px  0% 5px 92%
+margin: 5px  0% 5px 92%;
+border-radius:4px;
+/* border: 0.5px solid #4172F4; */
+box-shadow: 0px 1px 2px 2px #dcdde1;
+text-align:center;
+padding:8px 0;
+transition:.3s ease-in-out;
+
+
 `
-const TableHeader = styled.th`
-width:10%;
-padding:5px 0
-`
-const TableBody = styled.td`
-padding:5px 0;
-`
+
 
 const RegisterModal= styled.div`
-/* position:absolute;
-top:30%; */
-background: blue;
-width:80%;
-height:30%
+ position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%); 
+background: #4172F4;
+width:40%;
+height:50%;
+border-radius:4px;
+
 `
 const ModalContainer = styled.form`
-
+width:100%;
 display:flex;
-align-items: center;
+align-items:center;
 justify-content:center;
+height:100%;
+
 `
 
-const WReportPresent =({stockBock,week,  handleChange, RegiSubmit,RegiClick,register,modify, handleClick,TList }) =>{
+const InputField = styled.div`
+  position: relative;
+  left:60px
+`
+const Input = styled.input`
+width: 100%;
+  padding: 10px 0;
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+
+`
+const Lable = styled.label`
+position: absolute;
+  top:0;
+  left: -100px;
+  padding: 10px 0;
+  font-size: 20px;
+  color: #fff;
+  pointer-events: none;
+`
+const Button = styled.button`
+background: none;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  display: block;
+  font-size: 18px;
+  padding:4px 25px;
+  margin-top:20px;
+  position: relative;
+  left:50%;
+  transition: .3s ease-in-out;
+  &:hover{
+    background: #fff;
+    color:#4172f3;
+    font-weight:bold;
+  }
+` 
+
+const WReportPresent =({stockBock,  handleChange, RegiSubmit,RegiClick,register,modify, handleClick,TList }) =>{
 
     console.log(TList)
     return(
@@ -52,62 +105,36 @@ const WReportPresent =({stockBock,week,  handleChange, RegiSubmit,RegiClick,regi
             <Container>
                 <Title>Weekly Report</Title>
                     <Register onClick={RegiClick}>Register</Register>
-                    <Table/>
-                     <table style={{width:`100%`,textAlign:"center", border:"1px solid black"}}>
-                    <thead style={{width:`100%`}}>
-                        <tr>
-                            <TableHeader>재고 현황</TableHeader>
-                            <TableHeader>브랜드</TableHeader>
-                            <TableHeader style={{width:`30%`}}>제품 명</TableHeader>
-                            <TableHeader>기존 재고</TableHeader>
-                            <TableHeader>입고</TableHeader>
-                            <TableHeader>출고</TableHeader>
-                            <TableHeader>현재재고</TableHeader>
-                            <TableHeader>수정</TableHeader>
-                        </tr>
-                    </thead>
-                    {stockBock && stockBock.map(stock=> (
-                    <tbody>
-                        <tr key={Math.random()} onClick={handleClick}>
-                            <TableBody >{stock.stock_state}</TableBody>
-                            <TableBody >{stock.brand}</TableBody>
-                            <TableBody >{stock.product_name}</TableBody>
-                            <TableBody >{stock.weekly_stock_past}</TableBody>
-                            <TableBody >{stock.weekly_stock_plus ? stock.weekly_stock_plus: "-"}</TableBody>
-                            <TableBody >{stock.weekly_stock_minus ? stock.weekly_stock_minus :"-" }</TableBody>
-                            <TableBody >{stock.weekly_stock_past - stock.weekly_stock_minus + stock.weekly_stock_plus}</TableBody>
-                           
-                            <TableBody onClick={RegiClick}>✒</TableBody>
-                        </tr>
-                    </tbody>
-                        ))
-                    }
-                    </table> 
+                    <TableSection stockBock={stockBock} RegiClick={RegiClick} handleClick={handleClick}/>
                     {register ?( 
                     <RegisterModal>
+                    <span className="close" style={{position:"absolute", top:"5%", left:"95%",fontSize:"1.4rem" , color: "white"}} onClick = {RegiClick}>x</span>
                         <ModalContainer method="post" onSubmit={RegiSubmit} >
                             <div>
-                            <label>브랜드명</label>
-                            <input onChange={handleChange} name="brand"></input> 
+                            <InputField>
+                                <Lable>브랜드명</Lable>
+                                <Input onChange={handleChange} name="brand"/> 
+                            </InputField>
+                            <InputField>
+                                <Lable>제품명</Lable>
+                                <Input  onChange={handleChange} name="name"/>
+                            </InputField>
+                            <InputField>
+                                <Lable>초기재고 </Lable>
+                                <Input  onChange={handleChange} name="stock"/>
+                            </InputField>
+                            <InputField>
+                                <Lable>전달사항</Lable>
+                                <Input  onChange={handleChange} name="message"/>
+                            </InputField>
+                            <Button type="submit"  >등록</Button>
                             </div>
-                            <div>
-                            <label>제품명</label>
-                            <input  onChange={handleChange} name="name"></input>
-                            </div>
-                            <div>
-                            <label>초기재고 </label>
-                            <input  onChange={handleChange} name="stock"/>
-                            </div>
-                            <div>
-                                <label>전달사항</label>
-                                <input  onChange={handleChange} name="message"/>
-                            </div>
-                            <button type="submit"  >등록</button>
+                            
                         </ModalContainer>
                     </RegisterModal> ): null}
            
                     {modify ?(
-                     <WeekData TList={TList}></WeekData>
+                     <WeekData TList={TList} RegiClick={RegiClick}></WeekData>
                             ) :null}    
                    
             </Container>
