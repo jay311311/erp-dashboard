@@ -96,10 +96,18 @@ background: none;
     font-weight:bold;
   }
 ` 
+const BlackContainer = styled.div`
+position:absolute;
+top:0;
+left:0;
+width:100vw;
+height:100vh;
+background-color: rgba(0,0,0,0.7);
+`
 
-const WReportPresent =({stockBock,  handleChange, RegiSubmit,RegiClick,register,modify, handleClick,TList }) =>{
+const WReportPresent =({stockBock,  handleChange, RegisterSubmit,RegiClick,register,modify, handleClick,tableListData }) =>{
 
-    console.log(TList)
+    console.log(tableListData)
     return(
         <ContainerBox>
             <Container>
@@ -107,9 +115,10 @@ const WReportPresent =({stockBock,  handleChange, RegiSubmit,RegiClick,register,
                     <Register onClick={RegiClick}>Register</Register>
                     <TableSection stockBock={stockBock} RegiClick={RegiClick} handleClick={handleClick}/>
                     {register ?( 
+                  <BlackContainer>
                     <RegisterModal>
                     <span className="close" style={{position:"absolute", top:"5%", left:"95%",fontSize:"1.4rem" , color: "white"}} onClick = {RegiClick}>x</span>
-                        <ModalContainer method="post" onSubmit={RegiSubmit} >
+                        <ModalContainer method="post" onSubmit={RegisterSubmit} >
                             <div>
                             <InputField>
                                 <Lable>브랜드명</Lable>
@@ -131,10 +140,14 @@ const WReportPresent =({stockBock,  handleChange, RegiSubmit,RegiClick,register,
                             </div>
                             
                         </ModalContainer>
-                    </RegisterModal> ): null}
+                    </RegisterModal> 
+                    </BlackContainer>
+                    ): null}
            
                     {modify ?(
-                     <WeekData TList={TList} RegiClick={RegiClick}></WeekData>
+                      <BlackContainer>
+                     <WeekData tableListData={tableListData} RegiClick={RegiClick}/>
+                     </BlackContainer>
                             ) :null}    
                    
             </Container>

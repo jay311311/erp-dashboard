@@ -7,13 +7,14 @@ const  WReportContainer = () =>{
     const [loading, setLoading] = useState(false)
     const [register, SetRegister] =useState(false)
     const [modify, SetModify] =useState(false)
+    const [targetId, setTargetId] = useState(Number)
     const [regi, setRegi] = useState({
         brand:'',
         name:'',
         message:'',
         stock:''
     }) 
-    const [TList,setTList] = useState({
+    const [tableListData,settableListData] = useState({
         brand:'',
         name:'',
         message:'',
@@ -36,22 +37,24 @@ const  WReportContainer = () =>{
           
         }else{
             SetModify(!modify)
+
         }
     }
 
-    const RegiSubmit = (event) =>{
+    const RegisterSubmit = (event) =>{
         event.preventDefault();
         const {target:{name}}=event
         const {target:{brand}}=event
         const {target:{stock}}=event
         const {target:{message}}=event
+
          if(name.value || brand.value || stock.value || message.value){
             const newName = name.value
             const newBrand = brand.value
             const newStock = Number(stock.value)
             const newMessage = message.value
     
-           /*  axios.post("/register/",{
+             axios.post("/register/",{
                 brand_name : newBrand ,
                 product_name: newName,
                 initial_inventory: newStock,
@@ -61,7 +64,7 @@ const  WReportContainer = () =>{
               })
               .catch(function (error) {
                 console.log(error);
-              }) */
+              }) 
 
               console.log(newName, newBrand, newStock, newMessage )
 
@@ -85,8 +88,10 @@ const  WReportContainer = () =>{
         const {target:{parentElement:{cells}}} = event
         if (cells.length === 8){
             SetModify(!modify)
-            console.log(cells)
-            setTList({
+            setTargetId(event.target.parentElement.id)
+
+            console.log( cells)
+            settableListData({
                 brand:cells[1].innerHTML,
                 name:cells[2].innerHTML,
                 message:cells[0].innerHTML,
@@ -102,13 +107,14 @@ const  WReportContainer = () =>{
             <WReportPresent  
                 stockBock={stockBock} 
                 week={week}
-                RegiSubmit={RegiSubmit}
+                RegisterSubmit={RegisterSubmit}
                 handleChange={handleChange} 
                 handleClick={handleClick}
                 RegiClick={RegiClick}
                 register={register}
                 modify={modify}
-                TList={TList}
+                tableListData={tableListData}
+                targetId={targetId}
             />
         )
     

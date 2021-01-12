@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import styled from "styled-components"
+import styled from "styled-components";
+
 /* 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -50,8 +51,8 @@ const TableSection = ({stockBock,RegiClick,handleClick }) =>{
   
   
   
-
-      /*    axios.get("/show/")
+       
+        /*   axios.get("/show/")
           .then(function (response) {
             console.log(response);
           })
@@ -61,7 +62,8 @@ const TableSection = ({stockBock,RegiClick,handleClick }) =>{
           .finally(function () {
             // always executed
           });  
-         */
+       */
+      
 
 return(
   <>
@@ -94,10 +96,10 @@ return(
 <div>table</div>
 <table style={{width:`100%`,textAlign:"center", borderRadius:"4px", boxShadow : "0 3px 3px 3px rgba(224, 224, 224, 1)"}}>
                     <thead style={{width:`100%`}}>
-                        <tr>
+                        <tr key={Math.random()}>
                             <THeader>재고 현황</THeader>
                             <THeader>브랜드</THeader>
-                            <THeader style={{width:`30%`}}>제품 명</THeader>
+                            <THeader style={{width:`20%`}}>제품 명</THeader>
                             <THeader>기존 재고</THeader>
                             <THeader>입고</THeader>
                             <THeader>출고</THeader>
@@ -106,16 +108,15 @@ return(
                         </tr>
                     </thead>
                     {stockBock && stockBock.map(stock=> (
-                    <tbody>
-                        <tr key={Math.random()} onClick={handleClick}>
+                    <tbody key={stock.id}>
+                        <tr id={stock.id} onClick={handleClick}>
                             <TBody align="right">{stock.remark}</TBody>
                             <TBody align="right">{stock.brand_name}</TBody>
                             <TBody align="right">{stock.product_name}</TBody>
                             <TBody align="right">{stock.initial_inventory}</TBody>
                             <TBody align="right">{stock.plus ? stock.plus: "-"}</TBody>
                             <TBody align="right">{stock.minus ? stock.minus :"-" }</TBody>
-                            <TBody align="right">{stock.initial_inventory - stock.minus + stock.plus}</TBody>
-                           
+                            <TBody align="right">{stock.initial_inventory - stock.minus + stock.plus ? stock.initial_inventory - stock.minus + stock.plus :"-" }</TBody>
                             <TBody onClick={RegiClick}>✒</TBody>
                         </tr>
                     </tbody>
