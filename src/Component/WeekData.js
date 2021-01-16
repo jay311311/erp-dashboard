@@ -66,7 +66,8 @@ background: none;
   font-size: 18px;
   padding:4px 25px;
   position: relative;
-  left:45%;
+  top:3%;
+  left:85%;
   transition: .3s ease-in-out;
   &:hover{
     background: #bdc3c7;
@@ -78,6 +79,7 @@ background: none;
 const WeekData = ({tableListData:TableList, RegiClick}) =>{
     const [revise, setRevise] =useState(false)
     const [TableData, setTableData] = useState({
+        id: TableList.id,
         brand:TableList.brand,
         name:TableList.name,
         message:TableList.message,
@@ -85,6 +87,7 @@ const WeekData = ({tableListData:TableList, RegiClick}) =>{
         inventory_plus:"",
         inventory_minus:""
     })
+    const [date ,  setDate] = useState(new Date())
     
 
     const handleClick = (event) =>{
@@ -105,7 +108,8 @@ const WeekData = ({tableListData:TableList, RegiClick}) =>{
 
     const handleSumbit = (event) =>{
         event.preventDefault();
-        console.log(event.target.name);
+        console.log(event);
+        console.log(event.target.attributes.id.value, "해당아이다");
         setRevise(!revise);
         const {target:{name}}=event
         const {target:{brand}}=event
@@ -122,11 +126,12 @@ const WeekData = ({tableListData:TableList, RegiClick}) =>{
         const newPlus = inventory_plus.value
         const newMinus = inventory_minus.value
 
-
-
-        /* axios.put("/register/",{
-                inventory_plus:
-                inventory_minus:
+         axios.put(`show/`,{
+                brand_name: newBrand,
+                product_name: newName,
+                remark: newMessage,
+                inventory_plus: newPlus,
+                inventory_minus:newMinus,
                 initial_inventory: newStock,
                 
               }).then(function (response) {
@@ -134,19 +139,28 @@ const WeekData = ({tableListData:TableList, RegiClick}) =>{
               })
               .catch(function (error) {
                 console.log(error);
-              })  */
-    }
+              })   
+      }
+
+      
+      const DateSelect = (res) =>{
+        setDate({res})
+        console.log(res, )
+      }
+
+       
+    
 
   return(
     <ModifyModal>
     <span style={{position:"absolute", top:"5%", left:"95%",fontSize:"1.4rem" , color: "#636e72"}} onClick={RegiClick}>x</span>
         <ModalContainer>    
-        <div style={{width:"80%", marginTop:"20px"}}>
+        <div style={{width:"90%", marginTop:"20px"}}>
         
             {revise ? (  
-              <div style={{display:"flex", justifyContent:"center"}}>
-               <Calendar/>
-            <Form method="get" onSubmit={handleSumbit}>
+              <div style={{display:"flex", justifyContent:"space-between"}}>
+               <Calendar func={DateSelect}/>
+            <Form method="get" onSubmit={handleSumbit} id={TableList.id}>
                 <InputField> <Lable>브랜드 : </Lable><Input placeholder={TableList.brand} onChange={handleChange} name= "brand" /></InputField>
                 <InputField> <Lable>제품명 : </Lable> <Input placeholder={TableList.name} onChange={handleChange} name= "name" /></InputField>
                 <InputField> <Lable>전달사항 : </Lable> <Input placeholder={TableList.message ? TableList.message: "-" } onChange={handleChange} name="message"/></InputField>
@@ -160,7 +174,7 @@ const WeekData = ({tableListData:TableList, RegiClick}) =>{
 ) :(
     <>
         <div>
-        <div>{new Date().toDateString()}</div>
+        <div>{}</div>
        
                 <div><span>브랜드  : </span><span>{TableList.brand}</span></div>
                 <div><span>제품명 : </span><span>{TableList.name}</span></div>

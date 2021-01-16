@@ -1,4 +1,4 @@
-export const DataSet = {
+/* export const DataSet = {
     status: "ok",
     status_message: "Query was successful",
         data: {
@@ -38,3 +38,4 @@ export const DataSet = {
      ]
     }
 }
+ */

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import WReportPresent from "./WReportPresent"
-import {DataSet} from "../Component/DataSet"
+//import {DataSet} from "../Component/DataSet"
 import axios from "axios"
 
 const  WReportContainer = () =>{
@@ -27,8 +27,8 @@ const  WReportContainer = () =>{
 
     
 
-    const {data:{stock_box:stockBock}} = DataSet
-    const {data:{stock_box:{week}}} = DataSet
+/*     const {data:{stock_box:stockBock}} = DataSet */
+
 
     const RegiClick = (event) =>{
         console.log(event)
@@ -54,6 +54,7 @@ const  WReportContainer = () =>{
             const newStock = Number(stock.value)
             const newMessage = message.value
     
+
              axios.post("/register/",{
                 brand_name : newBrand ,
                 product_name: newName,
@@ -65,7 +66,7 @@ const  WReportContainer = () =>{
               .catch(function (error) {
                 console.log(error);
               }) 
-
+              
               console.log(newName, newBrand, newStock, newMessage )
 
 
@@ -86,12 +87,17 @@ const  WReportContainer = () =>{
 
     const handleClick=(event)=>{
         const {target:{parentElement:{cells}}} = event
-        if (cells.length === 8){
+        console.log(event.target.parentElement.cells)
+        console.log(event.target.parentElement.id)
+        setTargetId(event.target.parentElement.id)
+       
+    
+      
             SetModify(!modify)
-            setTargetId(event.target.parentElement.id)
 
-            console.log( cells)
+           console.log("here", cells, event.target.parentElement.id)
             settableListData({
+                id:event.target.parentElement.id,
                 brand:cells[1].innerHTML,
                 name:cells[2].innerHTML,
                 message:cells[0].innerHTML,
@@ -99,14 +105,12 @@ const  WReportContainer = () =>{
                 plus:cells[4].innerHTML,
                 minus:cells[5].innerHTML,
                 now:cells[6].innerHTML,
-            })
+            }) 
         }
-    }
+    
 
         return(
             <WReportPresent  
-                stockBock={stockBock} 
-                week={week}
                 RegisterSubmit={RegisterSubmit}
                 handleChange={handleChange} 
                 handleClick={handleClick}
@@ -114,7 +118,7 @@ const  WReportContainer = () =>{
                 register={register}
                 modify={modify}
                 tableListData={tableListData}
-                targetId={targetId}
+             
             />
         )
     

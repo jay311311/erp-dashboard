@@ -8,10 +8,9 @@ const Calender  = () => {
     
     const [date, setDate] = useState(new Date());
   
-    const handleCalendarClose = () => console.log("Calendar closed");
+    const handleCalendarClose = () => {this.props.func(date)};
     const handleCalendarOpen = () => console.log("Calendar opened");
-  
- 
+
     
     return (
       <DatePicker
@@ -22,7 +21,6 @@ const Calender  = () => {
         inline
         onCalendarClose={handleCalendarClose}
         onCalendarOpen={handleCalendarOpen}
-        
       />
     );
   };
